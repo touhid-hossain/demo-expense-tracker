@@ -1,0 +1,47 @@
+.dayText {
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  color: #92857a;
+  margin-top: 6px;
+}
+
+.chart_bar {
+  border-radius: 3px;
+  transition: all 0.5s ease;
+  width: 54px;
+}
+.defaultDay {
+  background-color: #496d91;
+}
+.currentDay {
+  background-color: #ff000099;
+}
+
+.currentDay:hover {
+  background-color: #00000099;
+
+}
+
+.amountText {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 23px;
+  padding: 6px;
+  color: #000000;
+  margin-bottom: 8px;
+  background: #3d668f4f;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.chart_bar:hover {
+  cursor: pointer;
+  background-color: #3d668f4f;
+}
+
+.chart_bar:hover + .amountText {
+  opacity: 1;
+}
