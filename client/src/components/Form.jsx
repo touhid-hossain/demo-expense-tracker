@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { useState, useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
 import moment from "moment";
@@ -7,7 +6,6 @@ import moment from "moment";
 
 const Form = () => {
   const [text, setText] = useState("");
-  // const date = useRef(null);
   const [type, setType] = useState("Income");
   const [amount, setAmount] = useState(0);
 
@@ -16,20 +14,21 @@ const Form = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    // let d = date.current.value.split("-");
-    // let newD = new Date(d[0], d[1] - 1, d[2]);
-    // console.log(newD);
-    let currentDate = moment().day();
-
+    let currentDate = moment().format("Do MMMM, dddd.");
+    // console.log(currentDate)
     const newTransactions = {
-      id: Math.floor(Math.random() * 100000),
-      text,
-      type,
       currentDate,
-      amount: parseInt(amount),
+      list: [
+        {
+          id: Math.floor(Math.random() * 100000),
+          text,
+          type,
+          amount: parseInt(amount),
+        },
+      ],
     };
 
-    console.log(newTransactions);
+    // console.log(newTransactions);
     addTransaction(newTransactions);
     setText("");
     setAmount(0);
@@ -51,15 +50,6 @@ const Form = () => {
               // required={true}
             />
           </div>
-          {/* <div className="input-group">
-            <input
-              type="date"
-              name="date"
-              className="form-input"
-              placeholder="Income date..."
-              ref={date}
-            />
-          </div> */}
           <select
             className="form-input"
             value={type}

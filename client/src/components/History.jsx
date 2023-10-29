@@ -2,26 +2,12 @@ import { useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
 import { Transaction } from "./Transaction";
 import "../components/History.css";
-import moment from "moment";
+// import moment from "moment";
 
 // console.log(moment().format("Do MMMM, dddd."));
 
 const History = () => {
   const { transactions } = useContext(GlobalContext);
-  
-  // let e = moment().day()
-  const d = new Date().getDay();
-  // console.log(d)
-
-  transactions.map((transaction) => {
-    if (transaction.currentDate === d) {
-      console.log(transaction.currentDate)
-      console.log("hey");
-    } else {
-      console.log("fkkoff");
-    }
-  });
-
 
   return (
     <div className="first-div">
@@ -31,12 +17,24 @@ const History = () => {
       </button>
       <div>
         <ul id="list" className="list">
-          <h3 className="text-start border-b-4 border-b-slate-400 pt-3 text-black text-xl font-bold">
-            {moment().format("Do MMMM  YYYY, dddd.")}
-          </h3>
-          {transactions.map((transaction) => (
-            <Transaction key={transaction.id} transaction={transaction} />
-          ))}
+          {transactions.length === 0 ? (
+            <h3 className="text-start border-b-4 border-b-slate-400 pt-3 text-black text-xl font-bold">
+              Data na thakle amar dhon dekhamu
+            </h3>
+          ) : (
+            transactions.map((transaction) => { 
+              return (
+                <>
+                  <h3 className="text-start border-b-4 border-b-slate-400 pt-3 text-black text-xl font-bold">
+                    {transaction.date}
+                  </h3>
+                  {transaction.list.map((item) => {
+                    return <Transaction key={item.id} transaction={item} />;
+                  })}
+                </>
+              );
+            })
+          )}
         </ul>
       </div>
     </div>

@@ -9,7 +9,10 @@ import moment from "moment";
 const Graph = () => {
   const { transactions } = useContext(GlobalContext);
   const amounts = transactions.map((transaction) => transaction.amount);
+  // console.log(amounts);
+
   const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
+  // console.log(total);
 
   return (
     <div className="flex flex-col items-center justify-center gap-5 p-8">

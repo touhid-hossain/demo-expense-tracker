@@ -11,11 +11,13 @@ const IncomeExpense = () => {
   const calculation = () => {
     let inc = 0;
     let exp = 0;
-    transactions.map((transaction) =>
-      transaction.type === "Income"
-        ? (inc += transaction.amount)
-        : (exp += transaction.amount)
-    );
+
+    transactions.map((transaction) => {
+      return transaction.list.map((item) => {
+        item.type === "Income" ? (inc += item.amount) : (exp += item.amount);
+        return item;
+      });
+    });
 
     updateIncome(inc);
     updateExpense(exp);
