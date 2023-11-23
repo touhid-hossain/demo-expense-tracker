@@ -20,6 +20,7 @@ const Form = () => {
       type,
       amount,
       text,
+      id: Math.floor(Math.random() * 100000),
     });
 
     setText("");
@@ -69,7 +70,7 @@ const Form = () => {
           </select>
           <div className="input-group">
             <input
-              type="text"
+              type="number"
               placeholder="Amount = $0"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}

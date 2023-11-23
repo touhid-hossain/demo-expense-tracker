@@ -25,15 +25,15 @@ const expenseReducer = (state, action) => {
         if (findIndex < 0) {
           workingTransctions.push({
             transactionDate,
-            transactionLists: [action.payload],
+            transactionLists: [
+              { ...action.payload, id: Math.floor(Math.random() * 100000) },
+            ],
           });
-        }
-
-        if (findIndex >= 0) {
+        } else {
           workingTransctions[findIndex].transactionLists.push({
-            hello: "Sumon",
+            ...action.payload,
+            id: Math.floor(Math.random() * 100000),
           });
-          //   console.log(workingTransctions[findIndex].transactionLists);
         }
 
         return workingTransctions;
@@ -47,9 +47,9 @@ const expenseReducer = (state, action) => {
     case ACTIONS.DELETE_TRANSACTION:
       return {
         ...state,
-        transactions: state.transactions.filter(
-          (transaction) => transaction.id !== action.payload
-        ),
+        transactions: state.transactions.map((transaction) => {
+          transaction.transactionLists.filter((tl) => tl.id !== action.payload);
+        }),
       };
 
     default:

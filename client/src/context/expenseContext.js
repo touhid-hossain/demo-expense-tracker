@@ -16,15 +16,46 @@ export const useExpense = () => {
 
 // Provider Component
 const ExpenseProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(expenseReducer, initialState);
-  console.log(state);
+  const [{ transactions }, dispatch] = useReducer(expenseReducer, initialState);
+
+  //  function for calculate both income and expense
+  const calculateTransactionAmount = (amountType) => {
+    return transactions.map((transaction) => {
+      const { transactionLists } = transaction;
+      // We will use array.reduce function for calculate our income.
+      return transactionLists.reduce((totalIncome, transactionList) => {
+        if (transactionList.type === amountType) {
+          return totalIncome + parseInt(transactionList.amount);
+        }
+        return totalIncome;
+      }, 0);
+    })[0];
+  };
+
+  // function for get balanced amount
+  const getAvailableAmount = () => {
+    return (
+      calculateTransactionAmount("Income") -
+      calculateTransactionAmount("Expense")
+    );
+  };
 
   // functions for dispatch actions
   function handleAddTransactions(transactionInfo) {
     dispatch({ type: ACTIONS.ADD_TRANSACTION, payload: transactionInfo });
   }
 
-  const value = { handleAddTransactions };
+  function handleDeleteTransaction(transactionId) {
+    dispatch({ type: ACTIONS.DELETE_TRANSACTION, payload: transactionId });
+  }
+
+  const value = {
+    handleAddTransactions,
+    transactions,
+    calculateTransactionAmount,
+    getAvailableAmount,
+    handleDeleteTransaction,
+  };
   return (
     <ExpenseContext.Provider value={value}>{children}</ExpenseContext.Provider>
   );
