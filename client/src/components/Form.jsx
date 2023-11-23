@@ -2,7 +2,6 @@ import { useRef } from "react";
 import { useState, useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
 import moment from "moment";
-import { useExpense } from "../context/expenseContext";
 
 // console.log(moment().format("Do MMMM, dddd."));
 
@@ -11,17 +10,27 @@ const Form = () => {
   // const date = useRef(null);
   const [type, setType] = useState("Income");
   const [amount, setAmount] = useState(0);
-  const { handleAddTransactions } = useExpense();
+
+  const { addTransaction } = useContext(GlobalContext);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    //
-    handleAddTransactions({
-      type,
-      amount,
-      text,
-    });
 
+    // let d = date.current.value.split("-");
+    // let newD = new Date(d[0], d[1] - 1, d[2]);
+    // console.log(newD);
+    let currentDate = moment().day();
+
+    const newTransactions = {
+      id: Math.floor(Math.random() * 100000),
+      text,
+      type,
+      currentDate,
+      amount: parseInt(amount),
+    };
+
+    console.log(newTransactions);
+    addTransaction(newTransactions);
     setText("");
     setAmount(0);
   };
@@ -69,7 +78,7 @@ const Form = () => {
           </select>
           <div className="input-group">
             <input
-              type="number"
+              type="text"
               placeholder="Amount = $0"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
@@ -78,10 +87,7 @@ const Form = () => {
             />
           </div>
           <div className="submit-btn">
-            <button
-              type="submit"
-              className="border py-2 text-white bg-indigo-500 w-full"
-            >
+            <button className="border py-2 text-white bg-indigo-500 w-full">
               Add Transaction
             </button>
           </div>
