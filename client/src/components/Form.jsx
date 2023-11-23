@@ -20,7 +20,6 @@ const Form = () => {
       type,
       amount,
       text,
-      id: Math.floor(Math.random() * 100000),
     });
 
     setText("");
