@@ -20,6 +20,7 @@ const ExpenseProvider = ({ children }) => {
 
   //  function for calculate both income and expense
   const calculateTransactionAmount = (amountType) => {
+    if (transactions.length === 0) return 0;
     return transactions.map((transaction) => {
       const { transactionLists } = transaction;
       // We will use array.reduce function for calculate our income.
@@ -34,10 +35,10 @@ const ExpenseProvider = ({ children }) => {
 
   // function for get balanced amount
   const getAvailableAmount = () => {
-    return (
-      calculateTransactionAmount("Income") -
-      calculateTransactionAmount("Expense")
-    );
+    const income = calculateTransactionAmount("Income");
+    const expense = calculateTransactionAmount("Expense");
+
+    return income - expense;
   };
 
   // functions for dispatch actions

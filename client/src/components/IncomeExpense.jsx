@@ -41,7 +41,7 @@ const IncomeExpense = () => {
       </div>
       <div>
         <h4>Available Amount</h4>
-        <p id="money-minus" className="money minus">
+        <p id="money-minus" className="money plus">
           ${getAvailableAmount()}
         </p>
       </div>

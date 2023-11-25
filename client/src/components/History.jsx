@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import "../components/History.css";
 import { useExpense } from "../context/expenseContext";
 import TransactionItem from "./TransactionItem";
