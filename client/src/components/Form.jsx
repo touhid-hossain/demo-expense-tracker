@@ -11,7 +11,7 @@ const Form = () => {
   // const date = useRef(null);
   const [type, setType] = useState("Income");
   const [amount, setAmount] = useState(0);
-  const { handleAddTransactions } = useExpense();
+  const { handleAddTransactions, transactions } = useExpense();
 
   const onSubmit = (e) => {
     e.preventDefault();

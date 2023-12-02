@@ -7,7 +7,7 @@ import {
 } from "../Reducer/expenseReducer";
 
 // Create Context
-const ExpenseContext = React.createContext();
+const ExpenseContext = createContext();
 
 // create custom hook for consume context value
 export const useExpense = () => {
