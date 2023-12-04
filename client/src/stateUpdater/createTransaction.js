@@ -1,12 +1,6 @@
+import { transactionType } from "../components/Form";
+
 export const createTransctions = (state, action) => {
-  // Default
-  // 0 => Sunday
-  // 1 => Monday
-  // 2 => Tuesday
-  // 3 => Wednesday
-  // 4 => Thursday
-  // 5 => Friday
-  // 6 => Saturday
   const workingTransctions = [...state.transactions];
   const weekday = [
     "Sunday",
@@ -20,12 +14,14 @@ export const createTransctions = (state, action) => {
   const transactionDate = new Date().getDate();
   const transactionDay = new Date().getDay();
   const { type, amount } = action.payload;
+  const { income, expense, others } = transactionType;
+
   const findIndex = workingTransctions.findIndex(
     (t) => t.transactionDate === transactionDate
   );
 
   if (findIndex < 0) {
-    if (type === "Expense") {
+    if (type === expense || type === others) {
       alert("You have no income yet now! So, add income first then expense!!");
       return workingTransctions;
     } else {
@@ -41,17 +37,17 @@ export const createTransctions = (state, action) => {
     // transactionlists array
     const transactionListArr = workingTransctions[findIndex].transactionLists;
 
-    if (type === "Expense") {
+    if (type === expense) {
       // Find out total Income
       const totalIncome = transactionListArr.reduce((t, l) => {
-        if (l.type === "Income") {
+        if (l.type === income) {
           return t + parseInt(l.amount);
         }
         return t;
       }, 0);
 
       const expenseIndex = transactionListArr.findIndex(
-        (l) => l.type === "Expense"
+        (l) => l.type === expense
       );
 
       if (expenseIndex < 0) {
@@ -68,7 +64,7 @@ export const createTransctions = (state, action) => {
       } else {
         // Means have expense tranction in our list
         const totalExpense = transactionListArr.reduce((t, l) => {
-          if (l.type === "Expense") {
+          if (l.type === expense) {
             return t + parseInt(l.amount);
           }
           return t;

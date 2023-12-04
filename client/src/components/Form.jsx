@@ -4,12 +4,16 @@ import { GlobalContext } from "../context/GlobalState";
 import moment from "moment";
 import { useExpense } from "../context/expenseContext";
 
-// console.log(moment().format("Do MMMM, dddd."));
+export const transactionType = {
+  income: "Income",
+  expense: "Expense",
+  others: "Others",
+};
 
 const Form = () => {
   const [text, setText] = useState("");
   // const date = useRef(null);
-  const [type, setType] = useState("Income");
+  const [type, setType] = useState(transactionType.income);
   const [amount, setAmount] = useState(0);
   const { handleAddTransactions, transactions } = useExpense();
 
